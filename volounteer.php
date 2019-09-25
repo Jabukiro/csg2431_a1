@@ -1,5 +1,4 @@
 <?php
-  header('Location: ./index.html');
   session_start();
   if (isset($_SESSION['level']) != 'volounteer')
   {
@@ -32,7 +31,8 @@
 		  echo'<p>'.$db->error.'</p>';
 		  exit;
     }
-  
+  }
+
   if(isset($_POST['remove_time_slot']))
   {
     #echo 'Form name available. Begin:'.$_POST["add_time"].'end';
@@ -43,6 +43,7 @@
       echo mysqli_connect_error();
       exit;
     }
+
   $remove_time_query->bind_param('i', $_POST['remove_time_slot']);
   if(!$remove_time_query->execute())
   {
@@ -52,6 +53,7 @@
   }
   header('Location: ./volounteer.php');
   }
+  
 
   $query = "SELECT * FROM volounteer_times WHERE vol_time_id = '".$_SESSION['uname']."' ORDER BY time_id ASC";
   $result = $db->query($query);
