@@ -70,7 +70,6 @@
     echo '<p> An Error happened fetching results #2: '.$db->error;
     echo '</p>';
   }
-  echo '<p>1st PHP block run</p>'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +124,8 @@
                         echo '<td><em>No Time slot selected...</em></td>';
                         echo '<td><em>No Task selected...</em></td>';
                         echo '<td></td>';
-                        echo '<td class=remove><button class="addbtn">
+                        echo '<td class=remove><button type="button" class="addbtn" 
+                              onclick="document.getElementById(\'id01\').focus()">
                               Add Time Slot
                               </button></td>';
                       }
@@ -151,16 +151,16 @@
           </div>
       
           <div class="container">
-              <form method= "post" name = "add_time" action="">
+              <form id="" method= "post" name = "add_time" action="">
               <h2>Add Time Slot:</h2>
                 <?php
                   if($time_result->num_rows == $result->num_rows)
                   {
-                    echo'<select name="add_time" id="add_time" default="You Legend! You\'ve booked all time slots!">';
+                    echo'<select name="add_time" id="id01" default="You Legend! You\'ve booked all time slots!">';
                   }
                   else
                   { 
-                    echo '<select name="add_time" id="add_time">';
+                    echo '<select name="add_time" id="id01">';
                     for($i=0; $i<$time_result->num_rows; $i++ )
                     {
                       $row = $time_result->fetch_assoc();

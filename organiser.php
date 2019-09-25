@@ -39,5 +39,14 @@
             <button  class="about">About</button>
         </div>
     </div>
+    <div id="id03" class='mainContainer'>
+        <div class="login-content animate">
+          <div class="welcome">
+              <?php
+                echo '<p><strong><em>Welcome, '.$_SESSION['uname'].'. Please organise these minions.</em></strong></p>';
+              ?>
+          </div>
+        </div>
+    </div>
 </body>
 </html>
