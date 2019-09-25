@@ -225,7 +225,7 @@ th, tr, td{
 th{
   background-color: #4CAF50;
 }
-#remove{
+.remove{
   border: hidden;
   border-left: 1px solid black;
   background: none;
@@ -234,6 +234,10 @@ th{
   background: none;
   font: italic;
   color: #4CAF50;
+  padding: 4px 4px 4px 4px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 5px;
 }
 button:hover.addbtn{
   background-color: #4CAF50;

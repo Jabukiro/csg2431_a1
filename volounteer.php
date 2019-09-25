@@ -115,7 +115,7 @@
                         <th>Time Slot</th>
                         <th>Allocated Task</th>
                         <th>Details</th>
-                        <th id="remove"><em></em></th>
+                        <th class="remove"><em></em></th>
                     </tr>
                     <tr>
                     <?php
@@ -124,9 +124,10 @@
                       {
                         echo '<td><em>No Time slot selected...</em></td>';
                         echo '<td><em>No Task selected...</em></td>';
-                        echo '<button class="addbtn">
+                        echo '<td></td>';
+                        echo '<td class=remove><button class="addbtn">
                               Add Time Slot
-                              </button>';
+                              </button></td>';
                       }
                       else
                       {
@@ -137,9 +138,9 @@
                           echo '<td>'.$row['time_id'].'</td>';
                           echo '<td>'.$row['task_id'].'</td>';
                           echo '<td>'.$row['description'].'</td>';
-                          echo '<button type="submit" name="remove_time_slot" id=resetbtn value='.$row['vol_time_id'].'>
+                          echo '<td class=remove><button type="submit" name="remove_time_slot" id=resetbtn value='.$row['vol_time_id'].'>
                                 Remove
-                                </button>';
+                                </button></td>';
                         }
                         unset($row);
                         unset($i);
