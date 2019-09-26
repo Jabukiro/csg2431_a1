@@ -14,6 +14,26 @@
     echo mysqli_connect_error();
     exit;
   }
+  $query = "SELECT * FROM volounteers WHERE email = '".$_SESSION['uname']."'";
+  $result = $db->query($query);
+  if($db->errno)
+  {
+    echo '<p> An Error happened fetching results #2: '.$db->error;
+    echo '</p>';
+  }
+
+  $volounteer_details = $result->fetch_assoc();
+
+  $firstname = $volounteer_details['first_name'];
+	$surname = $volounteer_details['surname'];
+	$dob = $volounteer_details['dob'];
+  $address = $volounteer_details['address'];
+  $suburb = $volounteer_details['suburb'];
+  $postcode = $volounteer_details['postcode'];
+  $addressln2 = $volounteer_details['address_2'];
+	$mobile = $volounteer_details['mobile'];
+	$email = $volounteer_details['email'];
+	$pwd = $volounteer_details['pwd'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,39 +61,42 @@
         <div class="container">
           
             <label for="email"><b>E-Mail*</b></label>
-            <p id = "register_email"type="text" name="email">email</p>
+            <p id = "register_email"type="text" name="email"><?php echo$email; ?></p>
 
             <label for="firstname"><b>First Name(s)*</b></label>
-            <p type="text" name="firstname" required></p>
+            <p type="text" name="firstname"><?php echo$firstname; ?></p>
 
             <label for="surname"><b>Surname*</b></label>
-            <p type="text" name="surname" required>
+            <p type="text" name="surname"><?php echo$surname; ?></p>
 
             <label for="address"><b>Address Line*</b></label>
-            <input type="text" name="address" required default="<?php?>">
+            <input type="text" name="address" placeholder = "<?php echo$address; ?>">
 
             <label for="suburb"><b>Suburb*</b></label>
-            <input type="text" name="suburb" required>
+            <input type="text" name="suburb" placeholder="<?php echo$suburb; ?>">
 
             <label for="postcode"><b>PostCode*</b></label>
-            <input type="text" name="postcode" required>
+            <input type="text" name="postcode" placeholder="<?php echo$postcode; ?>">
 
             <label for="address_l2"><b>Address Line 2</b></label>
-            <input type="text" name="address_l2">
+            <input type="text" name="address_l2" placeholder="<?php echo$addressln2; ?>">
 
             <label for="mobile"><b>Mobile*</b></label>
-            <input type="text" name="mobile" required>
+            <input type="text" name="mobile" placeholder="<?php echo$mobile; ?>">
 
             <label for="dob"><b>Date Of Birth* (YYYY-MM-DD)</b></label>
-            <input type="text" name="dob" required>
+            <p type="text" name="dob"><?php echo$dob;?></p>
       
-            <label for="pwd"><b>Password*</b></label>
-            <input type="password" placeholder="Enter Password" name="pwd" required>
+            <label for="pwd"><b>Password(Please first enter your current password if you want to change it)</b></label>
+            <input type="password" placeholder="Enter Password" name="pwd" >
 
-            <label for="con_pwd"><b>Confirm Password*</b></label>
-            <input type="password" placeholder="Enter Password" name="con_pwd" required>
+            <label for="con_pwd"><b>New Password()</b></label>
+            <input type="password" placeholder="Enter New Password" name="new_pwd">
+
+            <label for="con_pwd"><b>Confirm New Password</b></label>
+            <input type="password" placeholder="Confirm New Password" name="new_pwd">
               
-            <button type="submit" onclick="alert('Are you sure you want to update any changed field?')">Register</button>
+            <button type="submit" onclick="alert('Are you sure you want to update any changed field?')" name="edit_profile" value="true">Register</button>
             <button id="resetbtn"type="reset" onlick="alert('Empty fields will simply be ignored.')">Reset</button>
           </div>
       
