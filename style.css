@@ -72,7 +72,7 @@ button {
 
 #resetbtn{
   background: none;
-  font: italic;
+  font-style: italic;
   color: crimson;
 }
 
@@ -131,7 +131,7 @@ img.alien {
 /* Modal Content/Box */
 .login-content {
   background-color: #fefefe;
-  margin: 0% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  margin: 0% auto 15% auto; /* 0% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
   width: 60%; /* Could be more or less, depending on screen size */
 }
@@ -196,7 +196,7 @@ img.alien {
 .mainContainer{
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 100; /* Sit on top */
+  z-index: 99; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -217,10 +217,12 @@ img.alien {
 
 table{
   border-collapse: collapse;
+  width: 100%;
 }
 th, tr, td{
   border: 1px solid black;
   width: 25%;
+  text-align: center;
 }
 th{
   background-color: #4CAF50;
@@ -235,8 +237,7 @@ th{
   font: italic;
   color: #4CAF50;
   padding: 4px 4px 4px 4px;
-  margin-left: 2px;
-  margin-right: 2px;
+  margin: 0px 2px 0px 2px;
   border-radius: 5px;
 }
 button:hover.addbtn{
@@ -244,3 +245,8 @@ button:hover.addbtn{
 	color: black;
 }
 /**/
+/* Organiser's Section
+ */
+#organiser_table{
+  width: 100%;
+}
