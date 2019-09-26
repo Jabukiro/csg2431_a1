@@ -1,7 +1,6 @@
 <?php
-  header('Location: ./index.html');
   session_start();
-  if (isset($_SESSION['level']) != 'volounteer')
+  if (empty($_SESSION['uname']) || $_SESSION['level'] != 'organiser')
   {
     header('Location: ./index.html');
   }
@@ -12,6 +11,17 @@
     echo mysqli_connect_error();
     exit;
   }
+
+  $query = "SELECT * FROM volounteer_times WHERE 1 ORDER BY time_id ASC";
+  $result = $db->query($query);
+  if($db->errno)
+  {
+    echo '<p> An Error happened fetching results #1: '.$query.' '.$db->error;
+    echo '</p>';
+  }
+  /**
+   * Implement a view that colates the vol_time_id with the corresponding details associated with the volounteer name.
+   */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,11 +50,52 @@
         </div>
     </div>
     <div id="id03" class='mainContainer'>
-        <div class="login-content animate">
+        <div class="login-content animate" id="organiser_table">
           <div class="welcome">
               <?php
-                echo '<p><strong><em>Welcome, '.$_SESSION['uname'].'. Please organise these minions.</em></strong></p>';
+                echo '<p><strong><em>Welcome, '.$_SESSION['uname'].'. Organise these minions well. They must <u>serve</u> our purpose.</em></strong></p>';
               ?>
+          <div class="container">
+            <h2>Current Volounteer Time Slots:</h2>
+            <form method="post" action="">
+            <table>
+              <tr class="titles" style="width: 100%">
+                  <th>Time Slot</th>
+                  <th>Volounteer Name</th>
+                  <th>Allocated Task</th>
+                  <th>Deets</th>
+                  <th class="remove"><em></em></th>
+              </tr>
+              <tr>
+              <?php
+                if(!$result->num_rows)
+                {
+                  echo '<td style="text-align: center"><em>No</em></td>';
+                  echo '<td style="text-align: center"><em>Volounteer</em></td>';
+                  echo '<td style="text-align: center">Yet</td>';
+                  echo '<td style="text-align: center">:(</td>';
+                }
+                else
+                {
+                  for($i=0; $i<$result->num_rows; $i++)
+                  {
+                    $row = $result->fetch_assoc();
+                    $volounteer_times_id[i] = $row['time_id'];
+                    
+                    echo '<td>'.$row['time_id'].'</td>';
+                    echo '<td>'.$volounteer_name.'</td>';#Volounteer full name from to be inserted here
+                    echo '<td>'.$row['description'].'</td>';#Task Name to be inserted here
+                    echo '<td>'.$row['description'].'</td>';
+                    echo '<td class=addbtn><button type="button" name="edit_task" value='.$row['vol_time_id'].'>
+                          Remove
+                          </button></td>';#Make it popup like the register form.
+                  }
+                  unset($row);
+                  unset($i);
+                }
+              ?>
+            </table>
+            </form>
           </div>
         </div>
     </div>
