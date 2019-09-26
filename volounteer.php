@@ -69,6 +69,7 @@
   {
     echo '<p> An Error happened fetching results #2: '.$db->error;
     echo '</p>';
+    exit;
   }
 
   /**

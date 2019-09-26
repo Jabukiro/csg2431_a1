@@ -12,7 +12,7 @@
 
 	$query = $db->prepare("INSERT INTO volounteers
 	VALUES(?,?,?,?,?,?,?,?,?,?)");
-    if (mysqli_connect_error()){
+    if ($query){
         echo mysqli_connect_error();
         exit;
 	}
