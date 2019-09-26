@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `alien`
 --
-
+USE alien;
 -- --------------------------------------------------------
 
 --
@@ -57,10 +57,7 @@ CREATE TABLE `tasks` (
 --
 -- Dumping data for table `organisers`
 --
-INSERT INTO `tasks` (`task_id`, `task_name`) VALUES
-(1, 'Climbers')
-(2, 'Human Shield')
-(3, 'ET Healers')
+
 -- --------------------------------------------------------
 
 --
@@ -118,8 +115,9 @@ INSERT INTO `volounteers` (`email`, `first_name`, `surname`, `mobile`, `address`
 
 CREATE TABLE `volounteer_times` (
   `vol_time_id` int(10) UNSIGNED NOT NULL,
+  `vol_email` char(50) NOT NULL,
   `time_id` int(10) UNSIGNED NOT NULL,
-  `task_id` int(10) UNSIGNED NOT NULL,
+  `task_id` int(10) UNSIGNED NULL,
   `description` varchar(240) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -151,6 +149,7 @@ ALTER TABLE `volounteers`
 --
 ALTER TABLE `volounteer_times`
   ADD PRIMARY KEY (`vol_time_id`),
+  ADD KEY `vol_email` (`vol_email`),
   ADD KEY `time_id` (`time_id`),
   ADD KEY `task_id` (`task_id`);
 
@@ -182,7 +181,8 @@ ALTER TABLE `volounteer_times`
 --
 ALTER TABLE `volounteer_times`
   ADD CONSTRAINT `task_id_fk` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`task_id`),
-  ADD CONSTRAINT `time_id_fk` FOREIGN KEY (`time_id`) REFERENCES `time_slots` (`time_slot_id`);
+  ADD CONSTRAINT `time_id_fk` FOREIGN KEY (`time_id`) REFERENCES `time_slots` (`time_slot_id`),
+  ADD CONSTRAINT `vol_email_fk` FOREIGN KEY (`time_d`) REFERENCES `volounteer` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
