@@ -145,8 +145,6 @@
         </div>
     </div>
     <div id='id02' class='register' style="display: block">
-      <?php
-      ?>
       <form name="registerForm" class = "register-content animate" action="" method="post" onsubmit='return ValidateForm();'>
         <div class="imgcontainer">
             <a href="./volounteer.php"><span class="close" title="Close Login">&times;</span></a>
