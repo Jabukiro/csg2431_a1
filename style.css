@@ -247,6 +247,6 @@ button:hover.addbtn{
 /**/
 /* Organiser's Section
  */
-#organiser_table{
-  width: 100%;
+#organiserContainer{
+  width: 80%;
 }
