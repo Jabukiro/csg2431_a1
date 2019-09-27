@@ -127,7 +127,7 @@
                       <th>Time Slot</th>
                       <th>Allocated Task</th>
                       <th>Details</th>
-                      <th class="remove"><em></em></th>
+                      <th class="remove"></th>
                   </tr>
                   <?php
                     $volounteer_times_id = [null];
