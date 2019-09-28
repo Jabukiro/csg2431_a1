@@ -183,13 +183,13 @@
                       $row = $time_result->fetch_assoc();
                       if (!in_array($row["time_slot_id"], $volounteer_times_id))
                       {
-                        echo'<option value="'.$row["time_slot_id"].'">'.$row["time_slot_name"].'</option>';
+                        echo'<option value='.$row["time_slot_id"].' >'.$row["time_slot_name"].'</option>';
                       }
                     }
+                    echo '</select>';
                     echo '<button type="submit" class="addbtn">Add</button>';
                   }
                 ?>
-              </select>
               </form>
           </div>
     </div>
