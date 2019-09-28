@@ -1,7 +1,10 @@
 <?php
+
 /**
  * TODO:
  *--- Implement validation code
+ *--- https://www.php.net/manual/en/mysqli-stmt.get-result.php
+ *    Use that style to only insert updated fields
  */
 /**
  * Allows Volounteers, only, to edit Profile information
