@@ -12,6 +12,28 @@
     exit;
   }
 
+  if(isset($_POST['update_vol_time']) && $_POST['update_vol_time']=='')
+  {
+    $update_query="UPDATE volounteer_times SET task_id=?, task_name=?, description=? WHERE vol_time_id=?";
+    if($update_stmt->prepare($update_query))
+    {
+      $stmt_ok = $edit_time_stmt->bind_param('isi', $_POST['task_id'], $_POST['task_name'], $_POST['vol_time_id']);
+      if(!($stmt_ok && $edit_time_stmt->execute()))
+      {
+          header('Location: ./result.php');
+          $_SESSION['message'] = "There was an error. Please contact me using the details in the about section.</p><p>Error #".$update_stmt->errno."</p><p>".$update_stmt->error."</p>";
+          $_SESSION['redirect'] = "index.html";
+          $_SESSION['redirect_msg'] = "Edit Profile";
+          exit;
+      }
+      else
+      {
+          $stmt_result= $edit_time_stmt->get_result();
+          $result = $stmt_result->fetch_array(MYSQLI_ASSOC); #Stores the information to edit        
+      }
+    }
+  }
+
   $query = "SELECT vol_time_id,time_slot_name,full_name,task_name, description FROM vol_time_full_details WHERE 1 ORDER BY time_id ASC;";
   $result = $db->query($query);
   if($db->errno)
@@ -91,7 +113,7 @@
                     echo '<td style="text-align: left" class=remove>
                           <button style="color: #4CAF50" type="submit" class="addbtn" id="resetbtn" name="edit_task" value='.$row['vol_time_id'].'>
                           Edit
-                          </button></td>';#Make it popup like the register form.
+                          </button></td>';
                     echo '</tr>';
                   }
                   unset($row);
