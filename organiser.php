@@ -12,28 +12,51 @@
     exit;
   }
 
-  if(isset($_POST['update_vol_time']) && $_POST['update_vol_time']=='')
+  $updated=false;
+  if(isset($_POST['update_vol_time']) && $_POST['update_vol_time']!='')
   {
-    $update_query="UPDATE volounteer_times SET task_id=?, task_name=?, description=? WHERE vol_time_id=?";
+    $update_stmt = $db->stmt_init();
+    $update_query="UPDATE volounteer_times SET task_id=?,description=? WHERE vol_time_id=?";
     if($update_stmt->prepare($update_query))
     {
-      $stmt_ok = $edit_time_stmt->bind_param('isi', $_POST['task_id'], $_POST['task_name'], $_POST['vol_time_id']);
-      if(!($stmt_ok && $edit_time_stmt->execute()))
+      $stmt_ok = $update_stmt->bind_param('isi', $_POST['update_vol_task'], $_POST['description'], $_POST['update_vol_time']);
+      echo $_POST['update_vol_task'].$_POST['update_vol_time'].$_POST['description'];
+      if(!($stmt_ok && $update_stmt->execute()))
       {
           header('Location: ./result.php');
           $_SESSION['message'] = "There was an error. Please contact me using the details in the about section.</p><p>Error #".$update_stmt->errno."</p><p>".$update_stmt->error."</p>";
           $_SESSION['redirect'] = "index.html";
           $_SESSION['redirect_msg'] = "Edit Profile";
           exit;
+      } else {
+        $updated = true;
       }
-      else
-      {
-          $stmt_result= $edit_time_stmt->get_result();
-          $result = $stmt_result->fetch_array(MYSQLI_ASSOC); #Stores the information to edit        
-      }
+    } else {
+      header('Location: ./result.php');
+      $_SESSION['message'] = "There was an error. Please contact me using the details in the about section.</p><p>Error #".$update_stmt->errno."</p><p>".$update_stmt->error."</p>";
+      $_SESSION['redirect'] = "index.html";
+      $_SESSION['redirect_msg'] = "Home";
+      exit;
     }
   }
 
+  if(isset($_POST['clear_slot']))
+  {
+    $clear_query = "UPDATE volounteer_times SET task_id=DEFAULT,description=DEFAULT WHERE vol_time_id=".$_POST['clear_slot'].";";
+    $db->query($clear_query);
+    if($db->query($clear_query))
+    {
+      $updated=true;
+    }
+    else
+    {
+      header('Location: ./result.php');
+      $_SESSION['message'] = "There was an error updating records. Please contact me using the details in the about section.</p><p>Error #".$db->errno."</p><p>".$db->error."</p>";
+      $_SESSION['redirect'] = "organiser.php";
+      $_SESSION['redirect_msg'] = "Home";
+      exit;
+    }
+  }
   $query = "SELECT vol_time_id,time_slot_name,full_name,task_name, description FROM vol_time_full_details WHERE 1 ORDER BY time_id ASC;";
   $result = $db->query($query);
   if($db->errno)
@@ -59,16 +82,14 @@
     <div class="header">
         <img id="icon" width='50px' height='50px' src = './img/icon.jpg' role='img' style="border-radius: 4pc">
         <div class="header-right">
-            <button class="active" 
-                    onclick="document.getElementById('id01').style.display='block'
-                              document.loginForm.uname.focus()">
-                Profile
-            </button>
-            <button id="resetbtn" 
-                    onclick="document.getElementById('id02').style.display='block';
-                      document.registerForm.email.focus()">
+            <a href='./tasks.php'><button class="active">
+                Manage Tasks
+            </button></a>
+            <a href="./logout.php">
+            <button style="font-style: normal"id="resetbtn">
               Logout
             </button>
+          </a>
             <button  class="about">About</button>
         </div>
     </div>
@@ -76,7 +97,11 @@
         <div class="login-content animate" id="organiserContainer">
           <div class="welcome">
               <?php
-                echo '<p><strong><em>Welcome, '.$_SESSION['uname'].'. Organise these minions well. They must <u>serve</u> our purpose.</em></strong></p>';
+                if($updated)
+                  echo '<p style="color:#4CAF50">Records updated</p>';
+                  
+                echo '<h1><strong><em>Welcome, '.$_SESSION['uname'].'.</em></strong></h1>';
+                echo '<h3>Organise these minions well. They must <u>serve</u> our purpose</h3>'
               ?>
           <div class="container">
             <h2>Current Volounteer Time Slots:</h2>
@@ -104,7 +129,7 @@
                   for($i=0; $i<$result->num_rows; $i++)
                   {
                     $row = $result->fetch_assoc();
-                    $task_name = (empty($row['task_id']) ? '<em>No Task alocated...</em>' : $row['task_name']);
+                    $task_name = ( empty($row['task_name']) ? '<em>No Task alocated...</em>':$row['task_name']);
                     echo '<tr>';
                     echo '<td>'.$row['time_slot_name'].'</td>';
                     echo '<td>'.$row['full_name'].'</td>';#Volounteer full name from to be inserted here

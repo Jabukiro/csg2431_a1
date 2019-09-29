@@ -89,7 +89,8 @@
                         echo '<td>'.$result['time_slot_name'].'</td>';
                         echo '<td>'.$result['full_name'].'</td>';#Volounteer full name from to be inserted here
                         echo '<td>';
-                        echo '<select name="edit_task" id="focus_point">'; #Starts drop down list
+                        echo '<select name="update_vol_task" id="focus_point">'; #Starts drop down list
+                        echo '<option value="'.null.'"></option>';
 
                         for($i=0; $i<$task_result->num_rows; $i++)
                         {
@@ -103,15 +104,20 @@
                         echo '<textarea name="description" maxlength="240" placeholder="'.$result['description'].'">';
                         echo '</textarea>';
                         echo '<td style="text-align: left" class=remove>
-                        <button style="color: #4CAF50" type="submit" class="addbtn" id="resetbtn" name="vol_time_id" value='.$result['vol_time_id'].'>
+                        <button style="color: #4CAF50" type="submit" class="addbtn" id="resetbtn" name="update_vol_time" value='.$result['vol_time_id'].'>
                         Update
                         </button></td>';
                         echo'</tr>';
                     ?>
                 </table>
+                <?php
+                    echo '<button value="'.$result['vol_time_id'];
+                    echo '" style="background:buttonface;color:red" type="submit" name="clear_slot" class="cancelbtn">';
+                    echo 'Clear Slot</button>';
+                ?>
             </div>
             <div class="container" style="background-color:#f1f1f1">
-            <a href="./volounteer.php"><button type="button" onclick="" class="cancelbtn">Cancel</button></a>
+            <a href="./organiser.php"><button type="button" class="cancelbtn">Cancel</button></a>
 
           </div>
         </form>
