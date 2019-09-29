@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if ($_SESSION['level'] != 'volounteer')
+  if (empty($_SESSION['uname']) || $_SESSION['level'] != 'volounteer')
   {
     header('Location: ./index.html');
   }
