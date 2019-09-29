@@ -103,8 +103,7 @@
             </button>
           </a>
           <a href="./logout.php">
-            <button style="font-style: normal"id="resetbtn" 
-                      document.registerForm.email.focus()">
+            <button style="font-style: normal"id="resetbtn">
               Logout
             </button>
           </a>
