@@ -2,7 +2,7 @@
   session_start();
   if (empty($_SESSION['uname']) || $_SESSION['level'] != 'volounteer')
   {
-    header('Location: ./index.html');
+    header('Location: ./index.php');
   }
   @ $db = new mysqli('localhost', 'root', '', 'alien');
 

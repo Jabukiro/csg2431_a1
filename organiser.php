@@ -2,7 +2,7 @@
   session_start();
   if (empty($_SESSION['uname']) || $_SESSION['level'] != 'organiser')
   {
-    header('Location: ./index.html');
+    header('Location: ./index.php');
   }
   @ $db = new mysqli('localhost', 'root', '', 'alien');
 
@@ -25,7 +25,7 @@
       {
           header('Location: ./result.php');
           $_SESSION['message'] = "There was an error. Please contact me using the details in the about section.</p><p>Error #".$update_stmt->errno."</p><p>".$update_stmt->error."</p>";
-          $_SESSION['redirect'] = "index.html";
+          $_SESSION['redirect'] = "index.php";
           $_SESSION['redirect_msg'] = "Edit Profile";
           exit;
       } else {
@@ -34,7 +34,7 @@
     } else {
       header('Location: ./result.php');
       $_SESSION['message'] = "There was an error. Please contact me using the details in the about section.</p><p>Error #".$update_stmt->errno."</p><p>".$update_stmt->error."</p>";
-      $_SESSION['redirect'] = "index.html";
+      $_SESSION['redirect'] = "index.php";
       $_SESSION['redirect_msg'] = "Home";
       exit;
     }

@@ -13,10 +13,10 @@
   }
   
   if ( isset($_SESSION['uname']) && $_SESSION['uname'] != '' )
-{
-	header('Location: usermenu.php');
-	exit;
-}
+  {
+	  header('Location: '.$_SESSION['level'].'.php');
+	  exit;
+  }
 ?>
 -->
 <!DOCTYPE html>
@@ -29,9 +29,22 @@
     <link id="icon" rel="icon" href="./img/icon.jpg">
 
     <script language="JavaScript" type="text/javascript">
+
+      function ValidateLogin()
+      {
+        if(document.loginForm.uname.value=='' || document.loginForm.pwd.value=='')
+        {
+          alert('Both Username and Password field cannot be blank');
+          document.loginForm.uname.focus();
+          return false;
+        }
+      }
+
       function ValidateForm()
       {
-        var dob_regex = /[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]/ //Matches: 'months' 00, 13-19. 'Days' 33-39!
+        var dob_regex = /[0-9]+-[0-1][0-9]-[0-3][0-9]/ //Matches: 'months' 00, 13-19. 'Days' 33-39!
+        var email_regex = /^\w+([\.\-\+\$]?\w+)*@\w+(\.\w+)+/
+        
         if (document.registerForm.email.value=='')
         {
           alert('Email Address field cannot be blank');
@@ -66,9 +79,9 @@
           return false;
         }
         
-        if (document.registerForm.postcode.value=='' || document.registerForm.postcode.value>5)
+        if (document.registerForm.postcode.value=='')
         {
-          alert('PostCode field cannot be blank and must not be more than 5 characters long.');
+          alert('PostCode field cannot be blank.');
           document.registerForm.postcode.focus();
           return false;
         }
@@ -99,13 +112,34 @@
           alert('PostCode must be a number.')
         }
 
+        if (isNaN(document.registerForm.mobile.value))
+        {
+          alert('Mobile is incorrect.')
+        }
+
+        if (string.match(document.registerForm.dob.value, email_regex) == null)
+        {
+          alert('email is of an invalid format.');
+          document.registerForm.email.focus();
+          return false;
+        }
+
         if (string.match(document.registerForm.dob.value, dob_regex) == null)
         {
           alert('Please adhere to the format YYYY-MM-DD for the date.');
           document.registerForm.dob.focus();
           return false;
+        } else{
+          var dob=document.registerForm.dob.value.split('-');
+          if(dob[1]>12 || dob[2]>31)
+          {
+            //Still allows some invalid dates. 
+            alert('Invalid date entered.');
+            document.registerForm.dob.focus();
+            return false;
+          }
         }
-
+         
         if (document.registerForm.pwd.value.length <5 || document.registerForm.pwd.value.length >16)
         {
           alert('Password length must be between 5 and 16 characters, inclusive.');
@@ -209,7 +243,6 @@
       
           <div class="container" style="background-color:#f1f1f1">
             <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-
           </div>
       </form>
 

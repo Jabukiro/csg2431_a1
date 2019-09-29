@@ -2,7 +2,7 @@
     session_start();
     if(empty($_SESSION['message']))
     {   
-        header('Location: index.html');
+        header('Location: index.php');
         exit;
     }
     $message = $_SESSION['message'];

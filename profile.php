@@ -12,7 +12,7 @@
   session_start();
   if ($_SESSION['level'] != 'volounteer')
   {
-    header('Location: ./index.html');
+    header('Location: ./index.php');
     exit;
   }
   @ $db = new mysqli('localhost', 'root', '', 'alien');
@@ -28,7 +28,7 @@
   {
     header('Location: ./result.php');
     $_SESSION['message'] = 'An Error happened fetching results: '.$db->error;
-    $_SESSION['redirect'] = 'index.html';
+    $_SESSION['redirect'] = 'index.php';
     $_SESSION['redirect_msg'] = ' Home.';
     exit;
   }
@@ -102,7 +102,7 @@
       $stmt_ok = $update_stmt->bind_param('sssssss', $_POST['address'], $_POST['suburb'], $_POST['postcode'], $_POST['address_2'], $_POST['mobile'], $_POST['new_pwd'], $_SESSION['uname']);
       
       $_SESSION['message'] = "Password updated! Please";
-      $_SESSION['redirect'] = "index.html";
+      $_SESSION['redirect'] = "index.php";
       $_SESSION['redirect_msg'] = " login again.";
       unset($_SESSION['uname']);
       unset($_SESSION['level']);
