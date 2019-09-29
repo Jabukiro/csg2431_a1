@@ -89,8 +89,7 @@
                         echo '<td>'.$result['time_slot_name'].'</td>';
                         echo '<td>'.$result['full_name'].'</td>';#Volounteer full name from to be inserted here
                         echo '<td>';
-                        echo '<select name="update_vol_task" id="focus_point">'; #Starts drop down list
-                        echo '<option value="'.null.'"></option>';
+                        echo '<select name="update_vol_task" id="focus_point" >'; #Starts drop down list
 
                         for($i=0; $i<$task_result->num_rows; $i++)
                         {
