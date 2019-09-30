@@ -168,7 +168,7 @@
               echo $edit.'" value='.$row['task_id'].'>';
               echo $edit;
               echo '</button>';
-              echo '<button class="addbtn" type="submit" name="remove_task" id="resetbtn" value='.$row['task_id'].'>
+              echo '<button class="addbtn" type="submit" name="remove_task" id="resetbtn" value='.$row['task_id'].' onclick="return confirm(\'Are You sure?\');">
               Remove
               </button></td>';
               echo '</tr>';

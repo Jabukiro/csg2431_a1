@@ -70,7 +70,7 @@
         </div>
     </div>
     <div id='id02' class='register' style="display: block">
-        <form method="post" action="./organiser.php" class="register-content animate" style="width: 80%">
+        <form method="post" action="./organiser.php" class="register-content animate" style="width: 80%" onsubmit="return confirm('Are you sure you want to perform that action?')";>
             <div class="imgcontainer">
                 <a href="./organiser.php"><span class="close" title="Close Login">&times;</span></a>
                 <h2>Edit Volounteer Tasks:</h2>

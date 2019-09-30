@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2019 at 02:00 AM
+-- Generation Time: Sep 30, 2019 at 05:51 AM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -21,7 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `alien`
 --
-USE alien;
+CREATE DATABASE IF NOT EXISTS `alien` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `alien`;
+
 -- --------------------------------------------------------
 
 --
@@ -55,8 +57,18 @@ CREATE TABLE `tasks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `organisers`
+-- Dumping data for table `tasks`
 --
+
+INSERT INTO `tasks` (`task_id`, `task_name`) VALUES
+(1, 'Admissions'),
+(10, 'Cleaning'),
+(2, 'Crowd Control'),
+(14, 'Human Shield'),
+(12, 'Pack Up'),
+(11, 'Run Competition'),
+(8, 'Set Up'),
+(7, 'Worker');
 
 -- --------------------------------------------------------
 
@@ -105,7 +117,9 @@ CREATE TABLE `volounteers` (
 --
 
 INSERT INTO `volounteers` (`email`, `first_name`, `surname`, `mobile`, `address`, `suburb`, `postcode`, `address_2`, `dob`, `password`) VALUES
-('a', 'a', 'a', 'a', 'a', 'a', '1234', 'a', '0000-00-00', '12345');
+('abcd@bacd.com', 'Ay-Ay', 'Ron', '0412345678', 'Yagomala, 99', 'Perth', '1234', NULL, '1987-19-39', '12345'),
+('d.barihuta@gmail.com', 'Herve-Daniel', 'Barihuta', '0431006280', 'Wadhurst ST, 26C', 'Perth', '6061', 'Wadhurst ST', '1997-12-11', '12345'),
+('jon@gamil.com', 'Jon', 'Doe', '0404040404', '33, Street', 'Street', '12345', '', '2000-01-01', '12345');
 
 -- --------------------------------------------------------
 
@@ -117,9 +131,47 @@ CREATE TABLE `volounteer_times` (
   `vol_time_id` int(10) UNSIGNED NOT NULL,
   `vol_email` char(50) NOT NULL,
   `time_id` int(10) UNSIGNED NOT NULL,
-  `task_id` int(10) UNSIGNED NULL,
-  `description` varchar(240) NULL
+  `task_id` int(10) UNSIGNED DEFAULT NULL,
+  `description` varchar(240) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `volounteer_times`
+--
+
+INSERT INTO `volounteer_times` (`vol_time_id`, `vol_email`, `time_id`, `task_id`, `description`) VALUES
+(7, 'abcd@bacd.com', 6, 11, 'See who reaches the fence first'),
+(8, 'abcd@bacd.com', 2, NULL, NULL),
+(9, 'd.barihuta@gmail.com', 4, NULL, NULL),
+(10, 'd.barihuta@gmail.com', 5, NULL, NULL),
+(11, 'd.barihuta@gmail.com', 1, 2, 'Hype up the other raiders'),
+(8, 'abcd@bacd.com', 2, 14, 'Be part of the 1st wave of raiders');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vol_time_full_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `vol_time_full_details` (
+`vol_time_id` int(10) unsigned
+,`vol_email` char(50)
+,`full_name` varchar(152)
+,`time_id` int(10) unsigned
+,`time_slot_name` char(20)
+,`task_id` int(10) unsigned
+,`task_name` char(20)
+,`description` varchar(240)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vol_time_full_details`
+--
+DROP TABLE IF EXISTS `vol_time_full_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vol_time_full_details`  AS  select `volounteer_times`.`vol_time_id` AS `vol_time_id`,`volounteer_times`.`vol_email` AS `vol_email`,concat(`volounteers`.`first_name`,', ',ucase(`volounteers`.`surname`)) AS `full_name`,`volounteer_times`.`time_id` AS `time_id`,`time_slots`.`time_slot_name` AS `time_slot_name`,`volounteer_times`.`task_id` AS `task_id`,`tasks`.`task_name` AS `task_name`,`volounteer_times`.`description` AS `description` from (((`volounteer_times` join `volounteers` on((`volounteer_times`.`vol_email` = `volounteers`.`email`))) join `time_slots` on((`volounteer_times`.`time_id` = `time_slots`.`time_slot_id`))) left join `tasks` on((`volounteer_times`.`task_id` = `tasks`.`task_id`))) ;
 
 --
 -- Indexes for dumped tables
@@ -161,7 +213,7 @@ ALTER TABLE `volounteer_times`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `task_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `task_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `time_slots`
 --
@@ -171,19 +223,7 @@ ALTER TABLE `time_slots`
 -- AUTO_INCREMENT for table `volounteer_times`
 --
 ALTER TABLE `volounteer_times`
-  MODIFY `vol_time_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `volounteer_times`
---
-ALTER TABLE `volounteer_times`
-  ADD CONSTRAINT `task_id_fk` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`task_id`),
-  ADD CONSTRAINT `time_id_fk` FOREIGN KEY (`time_id`) REFERENCES `time_slots` (`time_slot_id`),
-  ADD CONSTRAINT `vol_email_fk` FOREIGN KEY (`time_d`) REFERENCES `volounteer` (`email`);
-COMMIT;
+  MODIFY `vol_time_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

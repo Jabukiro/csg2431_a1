@@ -1,2 +1,4 @@
-.vscode/launch.json
-backup.bat
+*.7z 
+*.zip 
+backup.bat 
+.vscode/ 

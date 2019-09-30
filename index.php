@@ -42,7 +42,7 @@
 
       function ValidateForm()
       {
-        var dob_regex = /[0-9]+-[0-1][0-9]-[0-3][0-9]/ //Matches: 'months' 00, 13-19. 'Days' 33-39!
+        var dob_regex = /^[0-9]+-[0-1][0-9]-[0-3][0-9]/ //Matches: 'months' 00, 13-19. 'Days' 33-39!
         var email_regex = /^\w+([\.\-\+\$]?\w+)*@\w+(\.\w+)+/
         
         if (document.registerForm.email.value=='')
@@ -175,7 +175,7 @@
         </div>
     </div>
     <div id="id01" class="login">
-        <form name="loginForm" class="login-content animate" action="./login.php" method="post">
+        <form name="loginForm" class="login-content animate" action="./login.php" method="post" onsubmit="return ValidateLogin();">
           <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Login">&times;</span>
             <img src="img/icon.jpg" alt="Alien" class="alien">
@@ -188,7 +188,7 @@
             <label for="pwd"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="pwd" required>
               
-            <button type="submit">Login</button>
+            <button type="submit" >Login</button>
           </div>
       
           <div class="container" style="background-color:#f1f1f1">
@@ -237,7 +237,7 @@
             <label for="con_pwd"><b>Confirm Password*</b></label>
             <input type="password" placeholder="Enter Password" name="con_pwd" required>
               
-            <button type="submit">Register</button>
+            <button type="submit" name="register">Register</button>
             <button id="resetbtn"type="reset">Reset</button>
           </div>
       

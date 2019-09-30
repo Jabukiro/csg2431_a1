@@ -120,7 +120,7 @@
       
           <div class="container">
             <h2>Your Time Slots:</h2>
-            <form method="post" action="">
+            <form method="post" action="" onsubmit="return confirm('Are you certain you want to delete that task?');">
                 <table>
                   <tr class="titles" style="width: 100%">
                       <th>Time Slot</th>

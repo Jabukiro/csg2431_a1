@@ -138,6 +138,18 @@
     <title>Area51 RAID!</title>
     <link rel="stylesheet" href="./style.css">
     <link id="icon" rel="icon" href="./img/icon.jpg">
+    <script language="JavaScript" type="text/javascript">
+
+      function ValidateLogin()
+      {
+        if(document.registerForm.pwd.value=='')
+        {
+          alert('Password field cannot be blank');
+          document.loginForm.uname.focus();
+          return false;
+        }
+      }
+    </script>
 </head>
 <body background="./img/bg_2.jpg" onload="document.getElementById('focus_point').focus()">
     <div class="header">
@@ -191,12 +203,12 @@
             <label for="con_pwd"><b>Confirm New Password</b></label>
             <input type="password" placeholder="Confirm New Password" name="con_new_pwd">
               
-            <button type="submit" onclick="alert('Are you sure you want to update any changed field?')" name="edit_profile" value="true">Update</button>
+            <button type="submit" name="edit_profile" value="true">Update</button>
             <button id="resetbtn"type="reset" onlick="alert('Empty fields will simply be ignored.')">Reset</button>
           </div>
       
           <div class="container" style="background-color:#f1f1f1">
-            <a href="./volounteer.php"><button type="button" onclick="" class="cancelbtn">Cancel</button></a>
+            <a href="./volounteer.php"><button type="button" class="cancelbtn">Cancel</button></a>
 
           </div>
       </form>
