@@ -82,6 +82,9 @@
     <div class="header">
         <img id="icon" width='50px' height='50px' src = './img/icon.jpg' role='img' style="border-radius: 4pc">
         <div class="header-right">
+            <a href='./event.php'><button class="active">
+                Increase Time
+            </button></a>
             <a href='./tasks.php'><button class="active">
                 Manage Tasks
             </button></a>
@@ -89,8 +92,7 @@
             <button style="font-style: normal"id="resetbtn">
               Logout
             </button>
-          </a>
-            <button  class="about">About</button>
+            </a>
         </div>
     </div>
     <div id="id03" class='mainContainer'>
